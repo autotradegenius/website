@@ -716,13 +716,30 @@ body::before {
         top: 100%;
         left: 0;
         width: 100%;
-        background: white;
+        background: #5c6bc0; /* Dark background instead of white */
         flex-direction: column;
         box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        padding: 1rem 0;
     }
     
     .nav-links.active {
         display: flex;
+    }
+    
+    .nav-links li {
+        margin: 0;
+    }
+    
+    .nav-links a {
+        color: white; /* White text for dark background */
+        padding: 1rem;
+        display: block;
+        text-align: center;
+        border-bottom: 1px solid #ceb8ff;
+    }
+    
+    .nav-links a:hover {
+        background: #ceb8ff; /* Darker hover effect */
     }
 }
 </style>
