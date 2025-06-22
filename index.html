@@ -668,20 +668,98 @@ body::before {
 </head>
 <body>
     <header>
-        <nav class="container">
-            <div class="logo">AutoTradeGenius</div>
-            <ul class="nav-links">
-                <li><a onclick="showPage('home')">Home</a></li>
-                <li><a onclick="showPage('services')">Services</a></li>
-                <li><a onclick="showPage('bots')">Trading Bots</a></li>
-                <li><a onclick="showPage('bridge')">Trading Bridge</a></li>
-                <li><a onclick="showPage('vps')">VPS Services</a></li>
-                <li><a onclick="showPage('downloads')">Downloads</a></li>
-                <li><a onclick="showPage('pricing')">Pricing</a></li>
-                <li><a onclick="showPage('about')">About</a></li>
-                <li><a onclick="showPage('contact')">Contact</a></li>
-            </ul>
-        </nav>
+    <nav class="container">
+        <div class="logo">AutoTradeGenius</div>
+        <ul class="nav-links">
+            <li><a onclick="showPage('home')">Home</a></li>
+            <li><a onclick="showPage('services')">Services</a></li>
+            <li><a onclick="showPage('bots')">Trading Bots</a></li>
+            <li><a onclick="showPage('bridge')">Trading Bridge</a></li>
+            <li><a onclick="showPage('vps')">VPS Services</a></li>
+            <li><a onclick="showPage('downloads')">Downloads</a></li>
+            <li><a onclick="showPage('pricing')">Pricing</a></li>
+            <li><a onclick="showPage('about')">About</a></li>
+            <li><a onclick="showPage('contact')">Contact</a></li>
+        </ul>
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+</header>
+
+<style>
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: #333;
+    margin: 3px 0;
+    transition: 0.3s;
+}
+
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+    
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: white;
+        flex-direction: column;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    .nav-links.active {
+        display: flex;
+    }
+}
+</style>
+
+<script>
+function toggleMenu() {
+    const navLinks = document.querySelector('.nav-links');
+    navLinks.classList.toggle('active');
+}
+
+// Auto-close menu when clicking outside
+document.addEventListener('click', function(event) {
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    
+    // Check if click is outside both hamburger and nav-links
+    if (!hamburger.contains(event.target) && !navLinks.contains(event.target)) {
+        navLinks.classList.remove('active');
+    }
+});
+
+// Close menu when clicking on nav links (for mobile)
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', function() {
+        const navLinks = document.querySelector('.nav-links');
+        navLinks.classList.remove('active');
+    });
+});
+
+// Close menu on window resize (if user rotates phone or resizes window)
+window.addEventListener('resize', function() {
+    if (window.innerWidth > 768) {
+        const navLinks = document.querySelector('.nav-links');
+        navLinks.classList.remove('active');
+    }
+});
+</script>
     </header>
 
     <main class="container">
