@@ -1205,13 +1205,12 @@ body::before {
         
         <div class="form-container">
     <h3>✉️ Quick Contact Form</h3>
-    <form id="contactForm" action="https://formsubmit.co/eac98018883407dae460da21a1ba387d" method="POST">
+    <form id="contactForm" action="https://formsubmit.co/autotradegenius@gmail.com" method="POST">
         <!-- FormSubmit Configuration -->
         <input type="hidden" name="_subject" value="New Contact Form Submission - AutoTradeGenius">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_next" value="https://bridge.autotradegenius.in#contact">
-        <input type="hidden" name="_autoresponse" value="Thank you for contacting AutoTradeGenius! We'll respond within 24 hours.">
         
         <div class="form-group">
             <label for="name">Full Name:</label>
@@ -1663,6 +1662,25 @@ function generateBotResponse(userMessage) {
             showPage('home');
         });
 
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    const statusMessage = document.getElementById('statusMessage');
+    const submitBtn = this.querySelector('button[type="submit"]');
+    
+    // Show loading state
+    this.classList.add('loading');
+    submitBtn.textContent = 'Sending...';
+    statusMessage.style.display = 'none';
+    
+    // FormSubmit will handle the actual submission
+    // Show success message after a brief delay
+    setTimeout(() => {
+        statusMessage.className = 'status-message status-success';
+        statusMessage.textContent = '✅ Message sent successfully! We\'ll get back to you within 24 hours.';
+        statusMessage.style.display = 'block';
+        this.classList.remove('loading');
+        submitBtn.textContent = 'Send Message';
+    }, 1000);
+});
     </script>
 </body>
 </html>
