@@ -428,42 +428,6 @@
             color: #ffffff;
         }
 
-.status-message {
-    padding: 15px;
-    border-radius: 10px;
-    margin-top: 20px;
-    text-align: center;
-    font-weight: 600;
-    display: none;
-}
-
-.status-success {
-    background: linear-gradient(135deg, #00d4aa 0%, #00b894 100%);
-    color: white;
-    border: 1px solid #00d4aa;
-}
-
-.status-error {
-    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
-    color: white;
-    border: 1px solid #ff6b6b;
-}
-
-.loading {
-    opacity: 0.7;
-    pointer-events: none;
-}
-
-@keyframes pulse {
-    0% { opacity: 1; }
-    50% { opacity: 0.5; }
-    100% { opacity: 1; }
-}
-
-.loading .btn {
-    animation: pulse 1.5s infinite;
-}
-
         /* Form Styles */
         .form-container {
             background: linear-gradient(135deg, #1e2936 0%, #2a3441 100%);
@@ -1197,53 +1161,68 @@ body::before {
 
         <!-- Contact Page -->
 <div id="contact" class="page">
-    <div class="container">
-        <div class="section-header">
-            <h2>📞 Contact Us</h2>
-            <p>Get in touch with our team for support, sales inquiries, or technical assistance.</p>
-        </div>
-        
-        <div class="form-container">
-    <h3>✉️ Quick Contact Form</h3>
-    <form id="contactForm" action="https://formsubmit.co/autotradegenius@gmail.com" method="POST">
-        <!-- FormSubmit Configuration -->
+  <div class="container">
+    <div class="section-header">
+      <h2>📞 Contact Us</h2>
+      <p>Get in touch with our team for support, sales inquiries, or technical assistance.</p>
+    </div>
+
+    <div class="info-box">
+      <h3>📧 Email Support</h3>
+      <p><strong>autotradegenius@gmail.com</strong></p>
+      <p>We provide professional support exclusively via email.</p>
+      <p><em>Response time: Within 24 hours</em></p>
+    </div>
+
+    <div class="info-box">
+      <h3>🌐 Website</h3>
+      <p><strong>https://bridge.autotradegenius.in</strong></p>
+      <p>Visit our official website for more information</p>
+    </div>
+
+    <div class="form-container">
+      <h3>✉️ Quick Contact Form</h3>
+      <form id="contactForm" action="https://formsubmit.co/eac98018883407dae460da21a1ba387d" method="POST">
+
+        <!-- FormSubmit Config -->
         <input type="hidden" name="_subject" value="New Contact Form Submission - AutoTradeGenius">
-        <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_next" value="https://bridge.autotradegenius.in#contact">
-        
+        <input type="hidden" name="_autoresponse" value="Thanks for reaching out to AutoTradeGenius! We’ll respond shortly.">
+        <input type="hidden" name="_captcha" value="true">
+        <input type="text" name="_honey" style="display:none">
+
+        <!-- Form Fields -->
         <div class="form-group">
-            <label for="name">Full Name:</label>
-            <input type="text" id="name" name="name" required>
+          <label for="name">Full Name:</label>
+          <input type="text" id="name" name="name" required>
         </div>
-        
+
         <div class="form-group">
-            <label for="email">Email Address:</label>
-            <input type="email" id="email" name="email" required>
+          <label for="email">Email Address:</label>
+          <input type="email" id="email" name="email" required>
         </div>
-        
+
         <div class="form-group">
-            <label for="service">Service Interest:</label>
-            <select id="service" name="service" required>
-                <option value="">Select a service</option>
-                <option value="trading-bridge">Trading Bridge (Free Trial)</option>
-                <option value="trading-bots">AI Trading Bots</option>
-                <option value="vps-services">VPS Services</option>
-                <option value="support">Technical Support</option>
-                <option value="other">Other</option>
-            </select>
+          <label for="service">Service Interest:</label>
+          <select id="service" name="service" required>
+            <option value="">Select a service</option>
+            <option value="trading-bridge">Trading Bridge (Free Trial)</option>
+            <option value="trading-bots">AI Trading Bots</option>
+            <option value="vps-services">VPS Services</option>
+            <option value="support">Technical Support</option>
+            <option value="other">Other</option>
+          </select>
         </div>
-        
+
         <div class="form-group">
-            <label for="message">Message:</label>
-            <textarea id="message" name="message" rows="5" required></textarea>
+          <label for="message">Message:</label>
+          <textarea id="message" name="message" rows="5" required></textarea>
         </div>
-        
+
         <button type="submit" class="btn btn-primary">Send Message</button>
-    </form>
-    
-    <div id="statusMessage" class="status-message"></div>
-</div>
+      </form>
+    </div>
 
                 <div class="section-header">
                     <h3>🎉 Special Offers</h3>
@@ -1661,26 +1640,6 @@ function generateBotResponse(userMessage) {
         document.addEventListener('DOMContentLoaded', function() {
             showPage('home');
         });
-
-document.getElementById('contactForm').addEventListener('submit', function(e) {
-    const statusMessage = document.getElementById('statusMessage');
-    const submitBtn = this.querySelector('button[type="submit"]');
-    
-    // Show loading state
-    this.classList.add('loading');
-    submitBtn.textContent = 'Sending...';
-    statusMessage.style.display = 'none';
-    
-    // FormSubmit will handle the actual submission
-    // Show success message after a brief delay
-    setTimeout(() => {
-        statusMessage.className = 'status-message status-success';
-        statusMessage.textContent = '✅ Message sent successfully! We\'ll get back to you within 24 hours.';
-        statusMessage.style.display = 'block';
-        this.classList.remove('loading');
-        submitBtn.textContent = 'Send Message';
-    }, 1000);
-});
     </script>
 </body>
 </html>
