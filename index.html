@@ -428,6 +428,42 @@
             color: #ffffff;
         }
 
+.status-message {
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 20px;
+    text-align: center;
+    font-weight: 600;
+    display: none;
+}
+
+.status-success {
+    background: linear-gradient(135deg, #00d4aa 0%, #00b894 100%);
+    color: white;
+    border: 1px solid #00d4aa;
+}
+
+.status-error {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+    color: white;
+    border: 1px solid #ff6b6b;
+}
+
+.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.loading .btn {
+    animation: pulse 1.5s infinite;
+}
+
         /* Form Styles */
         .form-container {
             background: linear-gradient(135deg, #1e2936 0%, #2a3441 100%);
@@ -1162,47 +1198,42 @@ body::before {
         <!-- Contact Page -->
 <div id="contact" class="page">
   <div class="container">
+    
+    <!-- Section Header -->
     <div class="section-header">
       <h2>📞 Contact Us</h2>
       <p>Get in touch with our team for support, sales inquiries, or technical assistance.</p>
     </div>
 
-    <div class="info-box">
-      <h3>📧 Email Support</h3>
-      <p><strong>autotradegenius@gmail.com</strong></p>
-      <p>We provide professional support exclusively via email.</p>
-      <p><em>Response time: Within 24 hours</em></p>
-    </div>
-
-    <div class="info-box">
-      <h3>🌐 Website</h3>
-      <p><strong>https://bridge.autotradegenius.in</strong></p>
-      <p>Visit our official website for more information</p>
-    </div>
-
+    <!-- Form Container -->
     <div class="form-container">
       <h3>✉️ Quick Contact Form</h3>
-      <form id="contactForm" action="https://formsubmit.co/eac98018883407dae460da21a1ba387d" method="POST">
-
-        <!-- FormSubmit Config -->
+      <form
+        id="contactForm"
+        action="https://formsubmit.co/eac98018883407dae460da21a1ba387d"
+        method="POST"
+      >
+        <!-- FormSubmit Configuration -->
         <input type="hidden" name="_subject" value="New Contact Form Submission - AutoTradeGenius">
+        <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_next" value="https://bridge.autotradegenius.in#contact">
-        <input type="hidden" name="_autoresponse" value="Thanks for reaching out to AutoTradeGenius! We’ll respond shortly.">
-        <input type="hidden" name="_captcha" value="true">
+        <input type="hidden" name="_autoresponse" value="Thank you for contacting AutoTradeGenius! We'll respond within 24 hours.">
         <input type="text" name="_honey" style="display:none">
 
-        <!-- Form Fields -->
+        <!-- Name -->
         <div class="form-group">
           <label for="name">Full Name:</label>
           <input type="text" id="name" name="name" required>
         </div>
 
+        <!-- Email -->
         <div class="form-group">
           <label for="email">Email Address:</label>
           <input type="email" id="email" name="email" required>
         </div>
 
+        <!-- Service Interest -->
         <div class="form-group">
           <label for="service">Service Interest:</label>
           <select id="service" name="service" required>
@@ -1215,13 +1246,18 @@ body::before {
           </select>
         </div>
 
+        <!-- Message -->
         <div class="form-group">
           <label for="message">Message:</label>
           <textarea id="message" name="message" rows="5" required></textarea>
         </div>
 
+        <!-- Submit Button -->
         <button type="submit" class="btn btn-primary">Send Message</button>
       </form>
+
+      <!-- Status Message Placeholder -->
+      <div id="statusMessage" class="status-message"></div>
     </div>
 
                 <div class="section-header">
@@ -1640,6 +1676,7 @@ function generateBotResponse(userMessage) {
         document.addEventListener('DOMContentLoaded', function() {
             showPage('home');
         });
+
     </script>
 </body>
 </html>
