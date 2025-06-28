@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AutoTradeGenius - Trading Automation Services</title>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -1620,16 +1621,41 @@ function generateBotResponse(userMessage) {
             return 'Thank you for your question! 🤖 For detailed information about our services, visit bridge.autotradegenius.in or email autotradegenius@gmail.com. We\'re here to help with all your automated trading needs!';
         }
 
-        // Form submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your message! We will contact you within 24 hours at autotradegenius@gmail.com');
-        });
+       
 
         // Initialize page
         document.addEventListener('DOMContentLoaded', function() {
             showPage('home');
         });
+
+// Initialize EmailJS
+emailjs.init('r9lo0M_kk-n21VpgM');
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const submitBtn = document.querySelector('button[type="submit"]');
+    submitBtn.textContent = 'Sending...';
+    submitBtn.disabled = true;
+    
+    // Send email
+    emailjs.send('service_2botbbm', 'template_y9yde6q', {
+        from_name: document.getElementById('name').value,
+        from_email: document.getElementById('email').value,
+        service: document.getElementById('service').value,
+        message: document.getElementById('message').value
+    })
+    .then(function() {
+        alert('Message sent successfully!');
+        document.getElementById('contactForm').reset();
+    })
+    .catch(function() {
+        alert('Failed to send. Please email us directly.');
+    })
+    .finally(function() {
+        submitBtn.textContent = 'Send Message';
+        submitBtn.disabled = false;
+    });
+});
     </script>
 </body>
 </html>
