@@ -1399,14 +1399,28 @@ const botResponses = {
     },
     
     purchase: {
-        keywords: ['how to buy', 'purchase', 'order', 'subscribe', 'get started', 'sign up'],
-        response: 'To purchase: 1) Email autotradegenius@gmail.com with your preferred bot/service 2) We\'ll send payment details & setup instructions 3) Complete payment 4) Get instant access! We accept UPI, Bank Transfer, and Cards.'
-    },
+    keywords: ['how to buy', 'purchase', 'order', 'subscribe', 'get started', 'sign up', 'buy karna hai', 'kaise le', 'kaise kharide', 'buy'],
+    response: (() => {
+        const buyReplies = [
+            '🛒 Ready to roll? Just email **autotradegenius@gmail.com** with the bot/service you want. We'll send all payment + setup details! 💎 We accept USDT TRC20 too!',
+            '💡 Buying is simple: 1) Pick a bot 2) Email us 3) We send payment info (UPI/Card/USDT) 4) You're live in minutes!',
+            '📦 Want to subscribe? Email us with the name of the bot and we'll guide you through UPI/card/USDT payment and onboarding. Let's trade smart!',
+            '🔥 To buy: Ping us at **autotradegenius@gmail.com**. We'll send secure payment options (UPI/cards/bank/USDT TRC20) and full setup instructions.',
+            '🚀 Buying = Easy. Just email your choice to us, pay via UPI/Card/USDT, and get instant access to automation magic.'
+        ];
+        return buyReplies[Math.floor(Math.random() * buyReplies.length)];
+    })()
+},
     
     payment: {
-        keywords: ['payment', 'pay', 'upi', 'bank transfer', 'card', 'payment method', 'how to pay'],
-        response: 'We accept: UPI, Bank Transfer, Debit/Credit Cards, and Net Banking. After confirming your order via email, we\'ll share secure payment links. All transactions are encrypted and secure.'
-    },
+    keywords: ['payment', 'pay', 'upi', 'bank transfer', 'card', 'payment method', 'how to pay', 'usdt', 'crypto payment', 'trc20', 'wallet'],
+    response: 'We accept multiple payment methods:\n\n💳 Traditional: UPI, Bank Transfer, Debit/Credit Cards, Net Banking\n\n₿ Crypto Payment (USDT TRC20):\nAddress: TDM4gaGrYRhh39ugao8mt8eRjkxoTfTAZ6\n\nAfter payment, email transaction proof to autotradegenius@gmail.com for instant activation!'
+},
+    
+    crypto_payment: {
+    keywords: ['usdt wallet', 'trc20', 'crypto wallet', 'usdt address', 'wallet address', 'send usdt', 'pay with crypto', 'cryptocurrency payment', 'tether'],
+    response: '💎 USDT TRC20 Payment Address:\n\n📋 TDM4gaGrYRhh39ugao8mt8eRjkxoTfTAZ6\n\n✅ Steps:\n1. Send USDT (TRC20 network only)\n2. Screenshot the transaction\n3. Email proof to autotradegenius@gmail.com\n4. Mention your name & service\n5. Get activated within 1 hour!\n\n⚠️ Only TRC20 network - other networks will not work!'
+},
     
     contact: {
         keywords: ['call', 'phone', 'contact number', 'speak', 'talk', 'customer care'],
@@ -1682,6 +1696,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     </script>
 </body>
 </html>
+
 
 
 
