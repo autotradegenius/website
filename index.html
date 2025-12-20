@@ -29,7 +29,7 @@
             top: 0;
             z-index: 1000;
             box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
-            border-bottom: 1px solid #2a3441;
+            border-tom: 1px solid #2a3441;
         }
 
         .header-container {
@@ -1372,7 +1372,7 @@ body::before {
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
 
-        // Bot responses configuration
+// Bot responses configuration
 const botResponses = {
     pricing: {
         keywords: ['price', 'cost', 'fees', 'charges', 'how much', 'expensive', 'rate', 'subscription', 'plan'],
@@ -1409,15 +1409,31 @@ const botResponses = {
         response: 'Gold Sniper is our elite gold trading bot. Price: ₹18,000/month. Features: Advanced gold market analysis, real-time price tracking, economic news integration, golden opportunity alerts. Perfect for precious metals trading. Contact autotradegenius@gmail.com!'
     },
 
-    // WALLET ADDRESS RESPONSES
+    // VIP MEMBERS-ONLY BOT RESPONSES
+    vip_members_bot: {
+        keywords: ['vip bot', 'members bot', 'member bot', 'exclusive bot', 'secret bot', 'hidden bot', 'premium bot', 'elite bot', 'members only', 'vip only', 'member code', 'exclusive access', 'special bot'],
+        response: '🔐 *VIP Members-Only Bot* - EXCLUSIVE ACCESS REQUIRED\n\n⚠️ This bot is NOT publicly available and requires a MEMBER CODE to purchase.\n\n✨ Features:\n• Higher profitability than standard bots\n• More reliable & stable performance\n• Guaranteed results (with higher risk)\n• Advanced algorithms\n• Members-only support\n\n⚠️ HIGH RISK - HIGH REWARD: This bot is designed for experienced traders who can afford higher risk levels.\n\n🔑 To access: Email autotradegenius@gmail.com with "VIP MEMBER BOT" in the subject line. You MUST provide your valid member code to proceed.\n\n💰 Pricing & details shared only with verified members.'
+    },
+
+    member_code: {
+        keywords: ['member code', 'membership code', 'vip code', 'access code', 'secret code', 'code required', 'how to get code', 'member access'],
+        response: '🔑 Member codes are issued ONLY to:\n\n1️⃣ Existing long-term clients (6+ months)\n2️⃣ Referrals from verified members\n3️⃣ Special invitation-only programs\n\n📧 If you believe you qualify for a member code, email autotradegenius@gmail.com with:\n• Your name & current subscription details\n• Referral source (if applicable)\n• Trading experience & capital capacity\n\nWe review applications within 48 hours. Not all applications are approved.'
+    },
+
+    secret_unlock: {
+        keywords: ['unlock vip', 'become member', 'get membership', 'join vip', 'vip membership', 'how to join', 'exclusive membership'],
+        response: '🎯 Interested in VIP Membership?\n\nOur VIP program is invitation-based. Here\'s how to qualify:\n\n✅ Be an active subscriber for 6+ months\n✅ Demonstrate consistent trading discipline\n✅ Maintain good standing with support\n✅ Meet minimum capital requirements (₹5 lakh+)\n\n🔐 Or receive a referral from an existing VIP member.\n\nEmail autotradegenius@gmail.com to express interest. We\'ll guide you through the qualification process!'
+    },
+
+    // WALLET ADDRESS RESPONSES - ✅ YOUR WALLET ADDED
     wallet_usdt: {
         keywords: ['wallet', 'usdt wallet', 'trc20', 'tron', 'crypto wallet', 'payment wallet', 'usdt address', 'send usdt', 'pay usdt'],
-        response: '💳 USDT (TRC20) Wallet Address:\n\nTJxVKwPQ7HjFJyUvGpYrmkj5D3vX2pXYzK\n\n⚠️ Important: Only send USDT via TRC20 (Tron network). After payment, email transaction hash to autotradegenius@gmail.com for confirmation.'
+        response: '💳 USDT (TRC20) Wallet Address:\n\nTDM4gaGrYRhh39ugao8mt8eRjkxoTfTAZ6\n\n⚠️ Important: Only send USDT via TRC20 (Tron network). After payment, email transaction hash to autotradegenius@gmail.com for confirmation.'
     },
 
     wallet_general: {
         keywords: ['wallet address', 'where to send', 'payment address', 'crypto payment', 'send payment'],
-        response: '💰 Payment Options:\n\n1. USDT (TRC20): TJxVKwPQ7HjFJyUvGpYrmkj5D3vX2pXYzK\n2. UPI: Available on request\n3. Bank Transfer: Details sent via email\n\nEmail autotradegenius@gmail.com with your preferred method!'
+        response: '💰 Payment Options:\n\n1. USDT (TRC20): TDM4gaGrYRhh39ugao8mt8eRjkxoTfTAZ6\n2. UPI: Available on request\n3. Bank Transfer: Details sent via email\n\nEmail autotradegenius@gmail.com with your preferred method!'
     },
 
     transaction_confirm: {
@@ -1487,13 +1503,22 @@ const botResponses = {
     },
     
     purchase: {
-        keywords: ['how to buy', 'purchase', 'order', 'subscribe', 'get started', 'sign up'],
-        response: 'To purchase: 1) Email autotradegenius@gmail.com with your preferred bot/service 2) We\'ll send payment details & setup instructions 3) Complete payment 4) Get instant access! We accept USDT (TRC20), UPI, Bank Transfer, and Cards.'
+        keywords: ['how to buy', 'purchase', 'order', 'subscribe', 'get started', 'sign up', 'buy karna hai', 'kaise le', 'kaise kharide', 'buy'],
+        response: (() => {
+            const buyReplies = [
+                '🛒 Ready to roll? Just email *autotradegenius@gmail.com* with the bot/service you want. We\'ll send all payment + setup details!',
+                '💡 Buying is simple: 1) Pick a bot 2) Email us 3) We send payment info 4) You\'re live in minutes!',
+                '📦 Want to subscribe? Email us with the name of the bot and we\'ll guide you through UPI/card payment and onboarding. Let\'s trade smart!',
+                '🔥 To buy: Ping us at *autotradegenius@gmail.com*. We\'ll send secure payment options (UPI/cards/bank) and full setup instructions.',
+                '🚀 Buying = Easy. Just email your choice to us, make payment, and get instant access to automation magic.'
+            ];
+            return buyReplies[Math.floor(Math.random() * buyReplies.length)];
+        })()
     },
     
     payment: {
         keywords: ['payment', 'pay', 'upi', 'bank transfer', 'card', 'payment method', 'how to pay'],
-        response: 'We accept: USDT (TRC20), UPI, Bank Transfer, Debit/Credit Cards, and Net Banking. USDT Wallet: TJxVKwPQ7HjFJyUvGpYrmkj5D3vX2pXYzK. After confirming your order via email, we\'ll share other payment details.'
+        response: 'We accept: USDT (TRC20), UPI, Bank Transfer, Debit/Credit Cards, and Net Banking. USDT Wallet: TDM4gaGrYRhh39ugao8mt8eRjkxoTfTAZ6. After confirming your order via email, we\'ll share other payment details.'
     },
     
     contact: {
@@ -1619,7 +1644,8 @@ const botResponses = {
                 '🎉 Fun Fact: The first trade I ever made was a virtual potato-to-crypto swap… it was deliciously unprofitable.',
                 '🧠 Did you know? Bitcoin was worth less than ₹5 in 2010. Now it could buy you a small apartment — or at least a really nice gaming chair.',
                 '👀 Secret Mode Unlocked: If you type "Trade like a genius", I may or may not wink at your strategy.',
-                '💡 Try asking about our USDT wallet or payment methods!'
+                '💡 Try asking about our USDT wallet or payment methods!',
+                '🔐 Psst... Did you hear about our VIP Members-Only bot? Ask me about "member bot" for exclusive access!'
             ];
             return surprises[Math.floor(Math.random() * surprises.length)];
         })()
@@ -1717,6 +1743,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     </script>
 </body>
 </html>
+
 
 
 
