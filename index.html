@@ -55,8 +55,6 @@
             gap: 8px;
         }
 
-      
-
         .nav-links {
             display: flex;
             list-style: none;
@@ -72,6 +70,14 @@
             border-radius: 6px;
             transition: all 0.3s ease;
             cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        .nav-links a:focus {
+            outline: none;
         }
 
         .nav-links a:hover,
@@ -1682,6 +1688,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     </script>
 </body>
 </html>
+
 
 
 
