@@ -1622,64 +1622,70 @@ function addChatMessage(message, sender) {
 // NEW IMPROVED BOT RESPONSE FUNCTION - Replace your old one with this
 function generateBotResponse(userMessage) {
     const message = userMessage.toLowerCase().trim();
-    const matches = [];
     
-    // Priority categories (check these FIRST before general matching)
-    const highPriorityChecks = {
-        'member_bot': ['member bot', 'special bot', 'exclusive bot', 'vip bot', 'member only'],
-        'member_code': ['member code', 'how to get member code', 'membership', 'become member'],
-        'payment_wallet': ['wallet address', 'trc20', 'payment address', 'where to pay', 'crypto payment']
-    };
-    
-    // Check high priority matches first
-    for (const [category, keywords] of Object.entries(highPriorityChecks)) {
-        for (const keyword of keywords) {
-            if (message.includes(keyword)) {
-                const response = botResponses[category].response;
-                return typeof response === 'function' ? response() : response;
-            }
-        }
+    // ULTRA HIGH PRIORITY - Check these FIRST (exact phrase matching)
+    if (message.includes('member bot') || message.includes('special bot') || message.includes('exclusive bot') || message.includes('vip bot')) {
+        return botResponses['member_bot'].response;
     }
     
-    // Find all matching categories (normal priority)
+    if (message.includes('member code') || message.includes('how to get member code') || message.includes('become member')) {
+        return botResponses['member_code'].response;
+    }
+    
+    if (message.includes('wallet address') || message.includes('payment address') || message.includes('trc20') || message.includes('where to pay')) {
+        return botResponses['payment_wallet'].response;
+    }
+    
+    // Now check all other responses
+    const matches = [];
+    
     for (const [category, data] of Object.entries(botResponses)) {
-        // Skip high priority ones (already checked)
-        if (highPriorityChecks[category]) continue;
+        // Skip the ones we already checked
+        if (category === 'member_bot' || category === 'member_code' || category === 'payment_wallet') continue;
         
         for (const keyword of data.keywords) {
             if (message.includes(keyword.toLowerCase())) {
+                const response = typeof data.response === 'function' ? data.response() : data.response;
                 matches.push({
                     category: category,
-                    response: typeof data.response === 'function' ? data.response() : data.response,
-                    keyword: keyword
+                    response: response,
+                    keyword: keyword,
+                    keywordLength: keyword.length // For sorting by specificity
                 });
                 break;
             }
         }
     }
     
-    // If matches found, prioritize
+    // If matches found, prioritize by keyword length (more specific = higher priority)
     if (matches.length > 0) {
+        // Sort by keyword length (longer keywords = more specific)
+        matches.sort((a, b) => b.keywordLength - a.keywordLength);
+        
+        // Additional priority boost for important categories
         const priorityOrder = {
-            'market_warning': 10,
-            'financial_warning': 10,
-            'payment': 9,
-            'purchase': 8,
-            'cryptopilot': 7,
-            'flashtradex': 7,
-            'swingwave': 7,
-            'investelite': 7,
-            'trial': 6,
-            'pricing': 5,
-            'easter_eggs': 4,
-            'bots': 3
+            'market_warning': 100,
+            'financial_warning': 100,
+            'cryptopilot': 90,
+            'flashtradex': 90,
+            'swingwave': 90,
+            'investelite': 90,
+            'payment': 80,
+            'purchase': 70,
+            'trial': 60,
+            'pricing': 50,
+            'easter_eggs': 40,
+            'bots': 10 // Low priority for general "bot" keyword
         };
         
-        // Sort by priority
+        // Apply priority
         matches.sort((a, b) => {
             const priorityA = priorityOrder[a.category] || 0;
             const priorityB = priorityOrder[b.category] || 0;
-            return priorityB - priorityA;
+            if (priorityB !== priorityA) {
+                return priorityB - priorityA;
+            }
+            return b.keywordLength - a.keywordLength;
         });
         
         return matches[0].response;
@@ -1687,10 +1693,10 @@ function generateBotResponse(userMessage) {
     
     // Fallback responses
     const fallbackResponses = [
-        'Thank you for your question! 🤖 For detailed information about our services, visit bridge.autotradegenius.in or email autotradegenius@gmail.com. We\'re here to help!',
-        'I\'m not sure about that one! 🤔 But our team at autotradegenius@gmail.com can definitely help you. Feel free to reach out!',
-        'Hmm, that\'s a new one for me! 🧐 For the best answer, email autotradegenius@gmail.com and our experts will assist you.',
-        'Great question! 💡 For specific details, please contact autotradegenius@gmail.com or visit bridge.autotradegenius.in.'
+        'Thank you for your question! 🤖 For detailed information, visit bridge.autotradegenius.in or email autotradegenius@gmail.com.',
+        'I\'m not sure about that! 🤔 Our team at autotradegenius@gmail.com can help you.',
+        'Hmm, that\'s new! 🧐 Email autotradegenius@gmail.com for the best answer.',
+        'Great question! 💡 Contact autotradegenius@gmail.com or visit bridge.autotradegenius.in.'
     ];
     
     return fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)];
@@ -1734,6 +1740,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     </script>
 </body>
 </html>
+
 
 
 
