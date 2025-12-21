@@ -1621,41 +1621,80 @@ function addChatMessage(message, sender) {
 
 // NEW IMPROVED BOT RESPONSE FUNCTION - Replace your old one with this
 function generateBotResponse(userMessage) {
-    const message = userMessage.toLowerCase();
+    const message = userMessage.toLowerCase().trim();
     const matches = [];
     
-    // Find all matching categories
-    for (const [category, data] of Object.entries(botResponses)) {
-        for (const keyword of data.keywords) {
+    // Priority categories (check these FIRST before general matching)
+    const highPriorityChecks = {
+        'member_bot': ['member bot', 'special bot', 'exclusive bot', 'vip bot', 'member only'],
+        'member_code': ['member code', 'how to get member code', 'membership', 'become member'],
+        'payment_wallet': ['wallet address', 'trc20', 'payment address', 'where to pay', 'crypto payment']
+    };
+    
+    // Check high priority matches first
+    for (const [category, keywords] of Object.entries(highPriorityChecks)) {
+        for (const keyword of keywords) {
             if (message.includes(keyword)) {
-                matches.push({
-                    category: category,
-                    response: data.response,
-                    keyword: keyword
-                });
-                break; // Only count once per category
+                const response = botResponses[category].response;
+                return typeof response === 'function' ? response() : response;
             }
         }
     }
     
-    // If multiple matches, prioritize based on category importance
-    if (matches.length > 1) {
-        const priorityOrder = ['market_warning', 'pricing', 'cryptopilot', 'flashtradex', 'swingwave', 'investelite', 'purchase', 'trial'];
-        for (const priority of priorityOrder) {
-            const priorityMatch = matches.find(match => match.category === priority);
-            if (priorityMatch) {
-                return priorityMatch.response;
+    // Find all matching categories (normal priority)
+    for (const [category, data] of Object.entries(botResponses)) {
+        // Skip high priority ones (already checked)
+        if (highPriorityChecks[category]) continue;
+        
+        for (const keyword of data.keywords) {
+            if (message.includes(keyword.toLowerCase())) {
+                matches.push({
+                    category: category,
+                    response: typeof data.response === 'function' ? data.response() : data.response,
+                    keyword: keyword
+                });
+                break;
             }
         }
-        // Return first match if no priority match found
-        return matches[0].response;
-    } else if (matches.length === 1) {
+    }
+    
+    // If matches found, prioritize
+    if (matches.length > 0) {
+        const priorityOrder = {
+            'market_warning': 10,
+            'financial_warning': 10,
+            'payment': 9,
+            'purchase': 8,
+            'cryptopilot': 7,
+            'flashtradex': 7,
+            'swingwave': 7,
+            'investelite': 7,
+            'trial': 6,
+            'pricing': 5,
+            'easter_eggs': 4,
+            'bots': 3
+        };
+        
+        // Sort by priority
+        matches.sort((a, b) => {
+            const priorityA = priorityOrder[a.category] || 0;
+            const priorityB = priorityOrder[b.category] || 0;
+            return priorityB - priorityA;
+        });
+        
         return matches[0].response;
     }
-            
-            // Fallback response
-            return 'Thank you for your question! 🤖 For detailed information about our services, visit bridge.autotradegenius.in or email autotradegenius@gmail.com. We\'re here to help with all your automated trading needs!';
-        }
+    
+    // Fallback responses
+    const fallbackResponses = [
+        'Thank you for your question! 🤖 For detailed information about our services, visit bridge.autotradegenius.in or email autotradegenius@gmail.com. We\'re here to help!',
+        'I\'m not sure about that one! 🤔 But our team at autotradegenius@gmail.com can definitely help you. Feel free to reach out!',
+        'Hmm, that\'s a new one for me! 🧐 For the best answer, email autotradegenius@gmail.com and our experts will assist you.',
+        'Great question! 💡 For specific details, please contact autotradegenius@gmail.com or visit bridge.autotradegenius.in.'
+    ];
+    
+    return fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)];
+}
 
        
 
@@ -1695,6 +1734,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     </script>
 </body>
 </html>
+
 
 
 
