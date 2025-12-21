@@ -72,6 +72,7 @@
             border-radius: 6px;
             transition: all 0.3s ease;
             cursor: pointer;
+            user-select: none;
         }
 
         .nav-links a:hover,
@@ -248,6 +249,7 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            cursor: default;
         }
 
         .card::before {
@@ -1453,23 +1455,39 @@ const botResponses = {
         response: 'Setup is simple: 1) Choose your bot/service 2) Complete payment 3) We\'ll configure everything 4) Provide training session 5) You\'re ready to trade! Full setup support included.'
     },
     
-   refund: {
-    keywords: ['refund', 'money back', 'cancel', 'return', 'guarantee'],
-    response: '🧾 Refund Policy: Our Trading Bridge comes with a 7-day **free trial**, so no refund needed there. However, **bots and VPS services are non-refundable** once activated. Have questions? Email us at autotradegenius@gmail.com.'
-},
+    refund: {
+        keywords: ['refund', 'money back', 'cancel', 'return', 'guarantee'],
+        response: '🧾 Refund Policy: Our Trading Bridge comes with a 7-day **free trial**, so no refund needed there. However, **bots and VPS services are non-refundable** once activated. Have questions? Email us at autotradegenius@gmail.com.'
+    },
+    
+    payment_wallet: {
+        keywords: ['wallet', 'wallet address', 'trc20', 'tron', 'usdt', 'crypto payment', 'send payment', 'where to pay', 'payment address'],
+        response: '💳 Payment Wallet Address:\n\n**TRC20 (Tron Network):**\nTXhtjXq8zNxMyrW8hQdR9WcAj3X1P2L3q2\n\nSend USDT (TRC20) to this address and email the transaction hash to autotradegenius@gmail.com for confirmation. ✅'
+    },
+    
+    member_bot: {
+        keywords: ['member bot', 'special bot', 'exclusive bot', 'vip bot', 'member only', 'member code', 'exclusive access'],
+        response: '🔐 **Member-Only Bot Available!**\n\nWe have a special exclusive bot available only to members. To purchase this bot, you need a **Member Code**.\n\nIf you have a member code, email it to autotradegenius@gmail.com along with your purchase request. If you don\'t have a code, contact us to learn about membership eligibility!'
+    },
+    
+    member_code: {
+        keywords: ['how to get member code', 'member code', 'membership', 'become member', 'vip access', 'exclusive membership'],
+        response: '👑 **Membership Access:**\n\nMember codes are issued to select clients based on trading volume and loyalty. To inquire about membership:\n\n1️⃣ Email autotradegenius@gmail.com\n2️⃣ Mention your trading experience\n3️⃣ Request membership information\n\nOur team will review and respond within 24 hours!'
+    },
+    
     purchase: {
-    keywords: ['how to buy', 'purchase', 'order', 'subscribe', 'get started', 'sign up', 'buy karna hai', 'kaise le', 'kaise kharide', 'buy'],
-    response: (() => {
-        const buyReplies = [
-            '🛒 Ready to roll? Just email **autotradegenius@gmail.com** with the bot/service you want. We’ll send all payment + setup details!',
-            '💡 Buying is simple: 1) Pick a bot 2) Email us 3) We send payment info 4) You’re live in minutes!',
-            '📦 Want to subscribe? Email us with the name of the bot and we’ll guide you through UPI/card payment and onboarding. Let’s trade smart!',
-            '🔥 To buy: Ping us at **autotradegenius@gmail.com**. We’ll send secure payment options (UPI/cards/bank) and full setup instructions.',
-            '🚀 Buying = Easy. Just email your choice to us, make payment, and get instant access to automation magic.'
-        ];
-        return buyReplies[Math.floor(Math.random() * buyReplies.length)];
-    })()
-},
+        keywords: ['how to buy', 'purchase', 'order', 'subscribe', 'get started', 'sign up', 'buy karna hai', 'kaise le', 'kaise kharide', 'buy'],
+        response: (() => {
+            const buyReplies = [
+                '🛒 Ready to roll? Just email **autotradegenius@gmail.com** with the bot/service you want. We\'ll send all payment + setup details!',
+                '💡 Buying is simple: 1) Pick a bot 2) Email us 3) We send payment info 4) You\'re live in minutes!',
+                '📦 Want to subscribe? Email us with the name of the bot and we\'ll guide you through UPI/card payment and onboarding. Let\'s trade smart!',
+                '🔥 To buy: Ping us at **autotradegenius@gmail.com**. We\'ll send secure payment options (UPI/cards/bank) and full setup instructions.',
+                '🚀 Buying = Easy. Just email your choice to us, make payment, and get instant access to automation magic.'
+            ];
+            return buyReplies[Math.floor(Math.random() * buyReplies.length)];
+        })()
+    },
 
     requirements: {
         keywords: ['requirements', 'computer', 'internet', 'system', 'specifications'],
@@ -1682,6 +1700,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     </script>
 </body>
 </html>
+
 
 
 
